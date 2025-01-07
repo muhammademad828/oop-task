@@ -1,0 +1,217 @@
+<?php
+echo "/////////////////////////////////////////////////////////////// <br>";
+enum Gender: string{
+    case Male ="Male";
+    case Female = "Female";
+}
+class Author{
+    private $name ;
+    private $email;
+    private Gender $gender;
+      
+     function __construct( string $name ,  string $email , Gender $gender){
+        $this -> name = $name;
+        $this -> email = $email;
+        $this -> gender = $gender;
+     }
+     function ToString(){
+      echo "Name  : " , $this ->name , "<br>","email : " ,$this -> email , "<br>", "Gender : " , $this ->gender->value;
+
+   }
+      
+     function getname(){
+        return $this ->name;
+     }
+      function getgender():Gender {
+        return $this -> gender;
+     }
+     function setemail($email){
+        return $this ->email = $email;
+     }
+     function getemail(){
+        return $this -> email;
+     }
+} 
+
+class TestAuthor extends Author{
+
+function TestToString(){
+   echo "Test Function ToString <br>";
+   echo $this -> ToString();
+}
+function TestGetname(){
+   echo " <br> Test Function get name <br>";
+   echo $this -> getname(),"<br>";
+}
+function TestSetemail(){
+   echo "Test Function Set email <br>";
+   $this -> setemail("Mohammed45@gmail.com");
+   echo "email set to : " , $this->getemail() , "<br>";
+}
+function TestGetemail(){
+   echo "Test Function Get email  <br>";
+   echo $this -> getemail() , "<br>";
+}
+function TestGetGender(){
+   echo "Test Function Get Gender <br>";
+   echo $this -> getgender()-> value ,"<br>";
+}
+}
+$TestAuth = new TestAuthor("Youssef" , "youssef134@gmail.com" , Gender:: Male);
+$TestAuth ->TestToString();
+$TestAuth ->TestGetname();
+$TestAuth ->TestSetemail();
+$TestAuth ->TestGetemail();
+$TestAuth->TestGetGender();
+
+
+class Book{
+private $book_name ;
+private $price;
+private $qty;
+private $Author=[];
+function __construct($book_name , $price ,$qty){
+   $this-> book_name = $book_name;
+   $this-> price = $price;
+   $this -> qty = $qty;
+}
+function AddAuthor(Author $author){
+   $this->Author[] = $author;
+}
+
+function BookData(){
+   echo "your Books <br>";
+   echo " Name : " ,$this->book_name , "<br>";
+   echo "Price : " ,$this->price , "<br>";
+   echo "balance : " ,$this->qty , "<br>";
+    echo "  ------------------ Authors ----------------------- ";
+foreach($this->Author as $author){
+   echo $author ->ToString() ,"<br>";
+}
+}
+function setprice($price){
+   return $this ->price = $price;
+}
+function getprice(){
+   return $this ->price;
+}
+function setqty($qty){
+   return $this ->qty = $qty;
+}
+function getqty(){
+   return $this ->qty;
+}
+}
+$author1 = new Author("Ibrahim" , "ibrahim34@gmail.com" ,Gender :: Male);
+$author2 = new Author("Ahmed" , "ahmed3@gmail.com" ,Gender :: Male);
+$author3 = new Author("Omar" , "omar56@gmail.com" ,Gender :: Male);
+$author4 = new Author("Mostafa" , "mostafa89@gmail.com" ,Gender :: Male);
+
+
+$book = new Book("oop" , 100 , 5);
+$book ->AddAuthor($author1);
+$book ->AddAuthor($author2);
+$book ->AddAuthor($author3);
+$book ->AddAuthor($author4);
+$book ->BookData();
+
+
+echo "/////////////////////////////////////////////////////////////////////////////////////<br>";
+
+
+abstract class Person{
+   private $name ;
+   private $address;
+
+function __construct($name , $address){
+   $this-> name = $name;
+   $this->address = $address;
+}
+  function printdata():string{
+   return "Name : " .$this->name ."<br>Address : " .$this->address;
+}
+ function getname(){
+   return $this->name;
+}
+abstract function setaddress($address);
+function getaddress(){
+   return $this->address;
+}
+}
+class Student extends Person{
+   private $program;
+   private $year;
+   private $fee;
+
+   function __construct( $name , $address ,$program , $year , $fee){
+      parent::__construct($name , $address);
+      $this->program = $program;
+      $this->year = $year;
+      $this->fee = $fee;
+   }
+   function Studentdata():string{
+      return "Program : ".$this->program ."<br> Year : ".$this->year ."<br> Fee : " .$this->fee;
+   }
+   public function setaddress($address){
+      echo "New Address is : " .$address."<br>";
+   }
+   function getprogram(){
+      return $this->program;
+   }
+   function setprogram($program){
+      return $this->program = $program;
+   }
+   function getyear(){
+      return $this->year;
+   }
+   function setyear($year){
+      return $this->year =$year;
+   }
+   function getfee(){
+      return $this->fee;
+   }
+   function setfee($fee){
+      return $this->fee = $fee;
+   }
+}
+class Staff extends Person {
+   private $school;
+   private $pay;
+function __construct($name , $address , $school , $pay){
+   parent ::__construct($name , $address);
+   $this-> school = $school;
+   $this->pay = $pay;
+}
+function Staffdata():String{
+   return "School : ".$this->school ."<br> Pay : ".$this->pay;
+}
+public function setaddress($address){
+   echo "New Address is : " .$address."<br>";
+}
+function getschool(){
+   return $this->school;
+}
+function setschool($school){
+   echo "New School is : " .$school;
+}
+function getpay(){
+   return $this->pay;
+}
+function setpay($pay){
+   echo "New Pay is : " .$pay."<br>";
+}
+}
+$std = new Student("Hossam" , "Cairo" , "CS" , "2023" , "15000");
+$std ->printdata();
+echo " ============== Student Data ==================  <br>";
+echo "Name : " .$std->getname()."<br>";
+echo "Address : " .$std->getaddress()."<br>";
+echo $std->setaddress("Alexandria");
+echo $std->Studentdata(); 
+$staff =new Staff("mohamed" , "shebin" , "tesla" , "10000");
+echo " <br> your informations :  <br>";
+echo $staff ->printdata()."<br>";
+echo $staff ->Staffdata()."<br>";
+echo $staff->setschool("tesla")."<br>";
+echo $staff->setpay(20000);
+?>
